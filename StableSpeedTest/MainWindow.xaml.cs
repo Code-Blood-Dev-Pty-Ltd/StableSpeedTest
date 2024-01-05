@@ -60,6 +60,7 @@ namespace StableSpeedTest
             {
                 var _contents = FIO.File.ReadAllText(defaultFile);
                 downloadModels = JSONRoutines.ParseJsonToModels(_contents);
+                BindDataGrid();
             }
         }
 
@@ -78,6 +79,17 @@ namespace StableSpeedTest
             defaultDownloads.Items.Add(new DownloadModel() { Url = "https://www.gov.za/sites/default/files/gcis_document/201505/act-32-1944.pdf" });
 
             _ = RunTestAsync(_f, defaultDownloads.Items);
+        }
+
+        private void BindDataGrid()
+        {
+            var _histories = downloadModels.Items.SelectMany(item => item.Histories.Items).Select(o => new { Date = o.TestedEvent, Speed = o.BandwidthMbps, Duration = o.TimeInSeconds, Size = o.FileSizeInBytes }).ToList();
+            
+            dataGridTextColumnDate.Binding = new Binding("Date") {  StringFormat = "yyyy MMM dd HH:mm:ss" };
+            dataGridTextColumnBandwidth.Binding = new Binding("Speed") { StringFormat = "0.0" };
+            dataGridTextColumnDownloadSize.Binding = new Binding("Size") { StringFormat = "0.0" };
+            dataGridTextColumnTotalSeconds.Binding = new Binding("Duration") { StringFormat = "0.000" };
+            dataGridMain.ItemsSource = _histories;
         }
 
         private async Task<DownloadModels> RunTestAsync(string fileName, List<DownloadModel> items)
@@ -198,6 +210,27 @@ namespace StableSpeedTest
             {
                 buttonRunTest.IsEnabled = false;
             }
+        }
+
+        private void buttonResponse_Click(object sender, RoutedEventArgs e)
+        {
+            buttonResponse.IsEnabled = false;
+            buttonHistory.IsEnabled = true;
+            dataGridMain.Visibility = Visibility.Hidden;
+            scrollViewerMain.Visibility = Visibility.Visible;
+        }
+
+        private void buttonHistory_Click(object sender, RoutedEventArgs e)
+        {
+            buttonResponse.IsEnabled = true;
+            buttonHistory.IsEnabled = false;
+            dataGridMain.Visibility = Visibility.Visible;
+            scrollViewerMain.Visibility = Visibility.Hidden;
+        }
+
+        private void dataGridMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
