@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace StableSpeedTest.Models
 {
-    public class SpeedHistoryModels : INullable
+    public class SpeedHistories : INullable
     {
-        public SpeedHistoryModels()
+        public SpeedHistories()
         {
-            Items = new List<SpeedHistoryModel>();
+            Items = new List<SpeedHistory>();
         }
 
         [JsonIgnore]
         public bool IsNull { get; }
 
-        public List<SpeedHistoryModel> Items { get; set; }
+        public List<SpeedHistory> Items { get; set; }
 
         [JsonIgnore]
         public double AverageBandwidthMbps
@@ -39,9 +39,11 @@ namespace StableSpeedTest.Models
         }
     }
 
-    public class SpeedHistoryModel : INullable
+    public class SpeedHistory : INullable
     {
-        public SpeedHistoryModel()
+        [JsonIgnore]
+        public int Id { get; set; }
+        public SpeedHistory()
         {
             TestedEvent = DateTime.Now;
         }

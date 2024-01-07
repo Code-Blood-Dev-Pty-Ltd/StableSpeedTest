@@ -9,30 +9,30 @@ using System.Windows.Controls.Primitives;
 
 namespace StableSpeedTest.Models
 {
-    public class DownloadModels: INullable
+    public class Downloads: INullable
     {
-        public DownloadModels()
+        public Downloads()
         {
-            Items = new List<DownloadModel>();
+            Items = new List<Download>();
         }
 
-        public List<DownloadModel> Items { get; set; }
+        public List<Download> Items { get; set; }
 
         [JsonIgnore]
         public bool IsNull { get; }
     }
 
-    public class DownloadModel : INullable
+    public class Download : INullable
     {
-        public DownloadModel()
+        public Download()
         {
-            Histories = new SpeedHistoryModels();
+            Histories = new SpeedHistories();
             Url = string.Empty;
         }
 
         public string Url { get; set; }
 
-        public SpeedHistoryModels Histories { get; set; }
+        public SpeedHistories Histories { get; set; }
 
         [JsonIgnore]
         public double AverageBandwidthMbps

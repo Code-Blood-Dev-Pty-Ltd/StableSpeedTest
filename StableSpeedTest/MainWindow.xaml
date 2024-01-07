@@ -29,19 +29,31 @@
                     <ComboBoxItem IsSelected="True" Content="30 Minutes"/>
                     <ComboBoxItem Content="60 Minutes"/>
                 </ComboBox>
-                <ProgressBar x:Name="progressBarMain" HorizontalAlignment="Stretch" Height="15" Margin="5,5,5,5"/>
+                <ProgressBar x:Name="progressBarMain" HorizontalAlignment="Stretch" Height="20" Margin="5,5,5,5" Foreground="#FFFF3A00">
+                    <ProgressBar.BorderBrush>
+                        <SolidColorBrush Color="#FFBCBCBC" Opacity="0"/>
+                    </ProgressBar.BorderBrush>
+                    <ProgressBar.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </ProgressBar.Background>
+                </ProgressBar>
+                <TextBlock x:Name="textBlockSpeed" TextWrapping="Wrap" Text="..." d:Text="123 Mbps" Margin="5,0,5,5" Foreground="#FFB7FF00" FontFamily="Consolas" FontWeight="Bold" HorizontalAlignment="Center" Padding="3,3,3,3" FontSize="18">
+                    <TextBlock.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </TextBlock.Background>
+                </TextBlock>
                 <Button x:Name="buttonResponse" Content="Resonse" d:IsEnabled="True" IsEnabled="False" Margin="0,0,0,5" Click="buttonResponse_Click"/>
                 <Button x:Name="buttonHistory" Content="History" Margin="0,0,0,5" Click="buttonHistory_Click"/>
             </StackPanel>
         </Grid>
         <Grid Margin="220,0,0,0">
             <ScrollViewer x:Name="scrollViewerMain" d:Visibility="Hidden" Visibility="Visible" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <ScrollViewer.Background>
-                <SolidColorBrush Color="White" Opacity="0.5"/>
-            </ScrollViewer.Background>
-           
-            <StackPanel x:Name="stackPanelMain" >
-            </StackPanel>
+                <ScrollViewer.Background>
+                    <SolidColorBrush Color="White" Opacity="0.5"/>
+                </ScrollViewer.Background>
+
+                <StackPanel x:Name="stackPanelMain" >
+                </StackPanel>
             </ScrollViewer>
             <DataGrid x:Name="dataGridMain" AutoGenerateColumns="False" d:Visibility="Visible" Visibility="Hidden" SelectionMode="Single" SelectionChanged="dataGridMain_SelectionChanged" IsReadOnly="True" HeadersVisibility="Column" CanUserResizeRows="False">
                 <DataGrid.CellStyle>
@@ -58,15 +70,15 @@
                     <SolidColorBrush Color="#FFF0F0F0" Opacity="0.8"/>
                 </DataGrid.Background>
                 <DataGrid.Columns>
-                        <DataGridTextColumn x:Name="dataGridTextColumnDate" Header="Date" />
-                        <DataGridTextColumn x:Name="dataGridTextColumnBandwidth" Header="Speed"/>
-                        <DataGridTextColumn x:Name="dataGridTextColumnDownloadSize" Header="Size" />
-                        <DataGridTextColumn x:Name="dataGridTextColumnTotalSeconds" Header="Duration"/>
-                    </DataGrid.Columns>
+                    <DataGridTextColumn x:Name="dataGridTextColumnDate" Header="Date" />
+                    <DataGridTextColumn x:Name="dataGridTextColumnBandwidth" Header="Speed"/>
+                    <DataGridTextColumn x:Name="dataGridTextColumnDownloadSize" Header="Size" />
+                    <DataGridTextColumn x:Name="dataGridTextColumnTotalSeconds" Header="Duration"/>
+                </DataGrid.Columns>
 
-                </DataGrid>
-           
-       
+            </DataGrid>
+
+
         </Grid>
 
     </Grid>

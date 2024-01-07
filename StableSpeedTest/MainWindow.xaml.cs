@@ -26,7 +26,7 @@ namespace StableSpeedTest
     {
         private HttpClient httpClient;
         private string defaultFile = "default_downloads.json";
-        private DownloadModels downloadModels = new DownloadModels();
+        private Downloads downloadModels = new Downloads();
 
         // Create a thread-safe timer with an interval of 60 seconds.
         //private System.Threading.Timer timer = new System.Threading.Timer(
@@ -73,10 +73,10 @@ namespace StableSpeedTest
                 FIO.File.Delete(_f);
             }
 
-            var defaultDownloads = new DownloadModels();
+            var defaultDownloads = new Downloads();
 
-            defaultDownloads.Items.Add(new DownloadModel() { Url = "https://www.gov.za/sites/default/files/gcis_document/201505/act36of1919s.pdf" });
-            defaultDownloads.Items.Add(new DownloadModel() { Url = "https://www.gov.za/sites/default/files/gcis_document/201505/act-32-1944.pdf" });
+            defaultDownloads.Items.Add(new Download() { Url = "https://www.gov.za/sites/default/files/gcis_document/201505/act36of1919s.pdf" });
+            defaultDownloads.Items.Add(new Download() { Url = "https://www.gov.za/sites/default/files/gcis_document/201505/act-32-1944.pdf" });
 
             _ = RunTestAsync(_f, defaultDownloads.Items);
         }
@@ -92,9 +92,9 @@ namespace StableSpeedTest
             dataGridMain.ItemsSource = _histories;
         }
 
-        private async Task<DownloadModels> RunTestAsync(string fileName, List<DownloadModel> items)
+        private async Task<Downloads> RunTestAsync(string fileName, List<Download> items)
         {
-            var result = new DownloadModels();
+            var result = new Downloads();
 
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -125,21 +125,23 @@ namespace StableSpeedTest
                             stackPanelMain.Children.Add(textBlock);
                         });
 
-                        var content = await HTTPRoutines.DownloadFile(httpClient, i.Url, 4096, new Progress<int>(x =>
+                        var content = await HTTPRoutines.DownloadFile(httpClient, i.Url, 4096, new Progress<DownloadProgress>(x =>
                         {
                             Application.Current.Dispatcher.Invoke(() =>
                             {
-                                progressBarMain.Value = x;
+                                progressBarMain.Value = x.Progress;
+                                textBlockSpeed.Text = x.Speed.ToString("0.0") + " Mbps";
 
-                                if (x == 100)
+                                if (x.Progress == 100)
                                 {
                                     progressBarMain.Value = 0;
+                                    textBlockSpeed.Text = "...";
                                 }
                             });
 
                         }), CancellationToken.None);
 
-                        var history = new SpeedHistoryModel();
+                        var history = new SpeedHistory();
                         history.FileSizeInBytes = content.DownloadSizeInBytes;
                         history.TimeInSeconds = content.TimeDuration.TotalSeconds;
                         history.TestedEvent = DateTime.Now;

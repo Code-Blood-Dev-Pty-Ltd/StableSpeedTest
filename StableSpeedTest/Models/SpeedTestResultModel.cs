@@ -1,10 +1,15 @@
-namespace StableSpeedTest.Routines
+using System.Text.Json.Serialization;
+
+namespace StableSpeedTest.Models
 {
     /// <summary>
     /// Represents the result of a speed test.
     /// </summary>
     public class SpeedTestResult
     {
+        [JsonIgnore]
+        public int RowId { get; set; }
+
         /// <summary>
         /// Gets or sets the URL used for the speed test.
         /// </summary>

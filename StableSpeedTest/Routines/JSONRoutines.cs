@@ -19,7 +19,7 @@ namespace StableSpeedTest.Routines
         /// </summary>
         /// <param name="f">The file path.</param>
         /// <param name="m">The DownloadModel object.</param>
-        public static void WriteToJsonFile(string f, DownloadModel m)
+        public static void WriteToJsonFile(string f, Download m)
         {
             string json = JsonConvert.SerializeObject(m, Formatting.Indented);
             File.WriteAllText(f, json);
@@ -30,7 +30,7 @@ namespace StableSpeedTest.Routines
         /// </summary>
         /// <param name="f">The file path.</param>
         /// <param name="m">The DownloadModels object.</param>
-        public static void WriteToJsonFile(string f, DownloadModels m)
+        public static void WriteToJsonFile(string f, Downloads m)
         {
             string json = JsonConvert.SerializeObject(m, Formatting.Indented);
             File.WriteAllText(f, json);
@@ -41,11 +41,11 @@ namespace StableSpeedTest.Routines
         /// </summary>
         /// <param name="j">The JSON string.</param>
         /// <returns>The parsed DownloadModels object.</returns>
-        public static DownloadModels ParseJsonToModels(string j)
+        public static Downloads ParseJsonToModels(string j)
         {
             if (!string.IsNullOrEmpty(j))
             {
-                return JsonConvert.DeserializeObject<DownloadModels>(j);
+                return JsonConvert.DeserializeObject<Downloads>(j);
             }
             else
             {
@@ -58,11 +58,11 @@ namespace StableSpeedTest.Routines
         /// </summary>
         /// <param name="j">The JSON string.</param>
         /// <returns>The parsed DownloadModel object.</returns>
-        public static DownloadModel ParseJsonToModel(string j)
+        public static Download ParseJsonToModel(string j)
         {
             if (!string.IsNullOrEmpty(j))
             {
-                return JsonConvert.DeserializeObject<DownloadModel>(j);
+                return JsonConvert.DeserializeObject<Download>(j);
             }
             else
             {

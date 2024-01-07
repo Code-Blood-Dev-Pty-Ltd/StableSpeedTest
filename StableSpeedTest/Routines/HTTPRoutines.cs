@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StableSpeedTest.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace StableSpeedTest.Routines
         /// <param name="progress">An optional progress object to report the download progress. Default is null.</param>
         /// <param name="cancellationToken">A cancellation token to cancel the download operation. Default is null.</param>
         /// <returns>A Task that represents the asynchronous download operation. The task result is a SpeedTestResult object containing information about the download.</returns>
-        public static async Task<SpeedTestResult> DownloadFile(HttpClient httpClient, string url, int bufferSize = 4096, IProgress<int>? progress = default, CancellationToken cancellationToken = default)
+        public static async Task<SpeedTestResult> DownloadFile(HttpClient httpClient, string url, int bufferSize = 4096, IProgress<DownloadProgress>? progress = default, CancellationToken cancellationToken = default)
         {
             var result = new SpeedTestResult();
 
@@ -49,7 +50,7 @@ namespace StableSpeedTest.Routines
 
                         if (progress != null)
                         {
-                            progress.Report((int)((double)totalBytesRead / totalBytes * 100));
+                            progress.Report(DownloadProgress.New((int)((double)totalBytesRead / totalBytes * 100), (totalBytesRead * 8) / (stopwatch.Elapsed.TotalSeconds * 1000000)));
                         }
                     }
                 }
