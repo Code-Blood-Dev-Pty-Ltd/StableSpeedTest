@@ -7,9 +7,44 @@
         mc:Ignorable="d"
         Title="Stable Speed Test" Height="600" Width="800" WindowStartupLocation="CenterScreen" Background="Black">
     <Grid>
-        <Grid.Background>
-            <ImageBrush Opacity="0.5" Stretch="UniformToFill" ImageSource="/Resources/background.png"/>
-        </Grid.Background>
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/logo.png" AlignmentX="Left" AlignmentY="Center" Stretch="None"/>
+            </Grid.Background>
+            <Grid.OpacityMask>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="1" MappingMode="RelativeToBoundingBox">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                            <RotateTransform Angle="90" CenterX="0.5" CenterY="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="Black" Offset="1"/>
+                    <GradientStop Color="#00000000" Offset="0.48"/>
+                </LinearGradientBrush>
+            </Grid.OpacityMask>
+        </Grid>
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/background.png" AlignmentX="Right" Stretch="None"/>
+            </Grid.Background>
+            <Grid.OpacityMask>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                            <RotateTransform Angle="90" CenterX="0.5" CenterY="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#00000000" Offset="0.48"/>
+                </LinearGradientBrush>
+            </Grid.OpacityMask>
+        </Grid>
 
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="200">
             <Rectangle VerticalAlignment="Stretch" HorizontalAlignment="Stretch" RadiusX="10" RadiusY="10">
@@ -29,7 +64,7 @@
                     <ComboBoxItem IsSelected="True" Content="30 Minutes"/>
                     <ComboBoxItem Content="60 Minutes"/>
                 </ComboBox>
-                <ProgressBar x:Name="progressBarMain" HorizontalAlignment="Stretch" Height="20" Margin="5,5,5,5" Foreground="#FFFF3A00">
+                <ProgressBar x:Name="progressBarMain" HorizontalAlignment="Stretch" Height="20" Margin="5,5,5,5" Foreground="#FF00A7FF">
                     <ProgressBar.BorderBrush>
                         <SolidColorBrush Color="#FFBCBCBC" Opacity="0"/>
                     </ProgressBar.BorderBrush>

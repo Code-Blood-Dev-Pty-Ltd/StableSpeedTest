@@ -85,10 +85,10 @@ namespace StableSpeedTest
         {
             var _histories = downloadModels.Items.SelectMany(item => item.Histories.Items).Select(o => new { Date = o.TestedEvent, Speed = o.BandwidthMbps, Duration = o.TimeInSeconds, Size = o.FileSizeInBytes }).ToList();
             
-            dataGridTextColumnDate.Binding = new Binding("Date") {  StringFormat = "yyyy MMM dd HH:mm:ss" };
-            dataGridTextColumnBandwidth.Binding = new Binding("Speed") { StringFormat = "0.0" };
-            dataGridTextColumnDownloadSize.Binding = new Binding("Size") { StringFormat = "0.0" };
-            dataGridTextColumnTotalSeconds.Binding = new Binding("Duration") { StringFormat = "0.000" };
+            dataGridTextColumnDate.Binding = new Binding("Date") {  StringFormat = Globals.DateFormat };
+            dataGridTextColumnBandwidth.Binding = new Binding("Speed") { StringFormat = Globals.Decimal1Format };
+            dataGridTextColumnDownloadSize.Binding = new Binding("Size") { StringFormat = Globals.Decimal1Format };
+            dataGridTextColumnTotalSeconds.Binding = new Binding("Duration") { StringFormat = Globals.Decimal3Format };
             dataGridMain.ItemsSource = _histories;
         }
 
@@ -117,7 +117,7 @@ namespace StableSpeedTest
                         Application.Current.Dispatcher.Invoke(() =>
                         {
                             TextBlock textBlock = new TextBlock();
-                            textBlock.Text = $"{DateTime.Now:yyyy MMM dd HH:mm:ss}\nDownloading: {i.Url}";
+                            textBlock.Text = $"{DateTime.Now.ToString(Globals.DateFormat)}\nDownloading: {i.Url}";
                             textBlock.Margin = new Thickness(5, 5, 5, 0);
                             textBlock.Padding = new Thickness(3);
                             textBlock.Background = Brushes.DeepSkyBlue;
@@ -130,7 +130,7 @@ namespace StableSpeedTest
                             Application.Current.Dispatcher.Invoke(() =>
                             {
                                 progressBarMain.Value = x.Progress;
-                                textBlockSpeed.Text = x.Speed.ToString("0.0") + " Mbps";
+                                textBlockSpeed.Text = x.Speed.ToString(Globals.Decimal1Format) + " Mbps";
 
                                 if (x.Progress == 100)
                                 {
@@ -152,7 +152,7 @@ namespace StableSpeedTest
                         {
                             var _saturation = history.TimeInSeconds == 0 ? 0.0 : history.TimeInSeconds > 1 ? 100.0 : Convert.ToDouble(history.TimeInSeconds) * 100.0;
                             TextBlock textBlock = new TextBlock();
-                            textBlock.Text = $"{DateTime.Now:yyyy MMM dd HH:mm:ss}\nStats: {Convert.ToDecimal(history.FileSizeInBytes) / Convert.ToDecimal((1024 * 1024)):0.0} MB in {history.TimeInSeconds:0.000} seconds\nEstimated bandwidth: {history.BandwidthMbps:0.0} Mbps. Line Saturation: {_saturation:0.0}%";
+                            textBlock.Text = $"{DateTime.Now.ToString(Globals.DateFormat)}\nStats: {(Convert.ToDecimal(history.FileSizeInBytes) / Convert.ToDecimal((1024 * 1024))).ToString(Globals.Decimal1Format)} MB in {history.TimeInSeconds.ToString(Globals.Decimal3Format)} seconds\nEstimated bandwidth: {history.BandwidthMbps.ToString(Globals.Decimal1Format)} Mbps. Line Saturation: {_saturation.ToString(Globals.IntegerFormat)}%";
                             textBlock.Margin = new Thickness(5, 5, 5, 0);
                             textBlock.Padding = new Thickness(3);
                             textBlock.Background = Brushes.LawnGreen;

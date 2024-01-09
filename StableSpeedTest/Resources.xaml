@@ -5,4 +5,14 @@
             <ImageBrush ImageSource="/background.png" Stretch="UniformToFill"/>
         </Image.OpacityMask>
     </Image>
+    <Image x:Key="LogoWebp" >
+        <Image.OpacityMask>
+            <ImageBrush ImageSource="/logo.webp" Stretch="UniformToFill"/>
+        </Image.OpacityMask>
+    </Image>
+    <Image x:Key="LogoImage" >
+        <Image.OpacityMask>
+            <ImageBrush ImageSource="/logo.png" Stretch="UniformToFill"/>
+        </Image.OpacityMask>
+    </Image>
 </ResourceDictionary>
