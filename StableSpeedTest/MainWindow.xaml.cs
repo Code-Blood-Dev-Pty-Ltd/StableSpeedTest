@@ -214,22 +214,6 @@ namespace StableSpeedTest
             }
         }
 
-        private void buttonResponse_Click(object sender, RoutedEventArgs e)
-        {
-            buttonResponse.IsEnabled = false;
-            buttonHistory.IsEnabled = true;
-            dataGridMain.Visibility = Visibility.Hidden;
-            scrollViewerMain.Visibility = Visibility.Visible;
-        }
-
-        private void buttonHistory_Click(object sender, RoutedEventArgs e)
-        {
-            buttonResponse.IsEnabled = true;
-            buttonHistory.IsEnabled = false;
-            dataGridMain.Visibility = Visibility.Visible;
-            scrollViewerMain.Visibility = Visibility.Hidden;
-        }
-
         private void dataGridMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 

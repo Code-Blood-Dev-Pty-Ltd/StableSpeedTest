@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StableSpeedTest"
+        xmlns:mic="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
         mc:Ignorable="d"
         Title="Stable Speed Test" Height="600" Width="800" WindowStartupLocation="CenterScreen" Background="Black">
     <Grid>
@@ -55,7 +56,9 @@
             </Rectangle>
             <StackPanel Orientation="Vertical" Margin="5">
                 <RadioButton x:Name="radioButtonManual" Content="Manual" Margin="5,5,5,5" GroupName="radioGroupAutoTest" IsChecked="True" Checked="radioButtonManual_Checked" Unchecked="radioButtonManual_Unchecked"/>
-                <Button x:Name="buttonRunTest" Content="Run Test" Click="buttonRunTest_Click" Margin="5,5,5,5" HorizontalAlignment="Left"/>
+                <Button x:Name="buttonRunTest" Click="buttonRunTest_Click" Margin="5,5,5,5" HorizontalAlignment="Left">
+                    <mic:MaterialIcon Kind="FlagCheckered" Width="24" Height="24" />
+                </Button>
                 <RadioButton x:Name="radioButtonAuto" Content="Auto every:" Margin="5,5,5,5" GroupName="radioGroupAutoTest" Checked="radioButtonAuto_Checked" Unchecked="radioButtonAuto_Unchecked"/>
                 <ComboBox x:Name="comboBoxInterval" d:IsEnabled="True" IsEnabled="False" Margin="5,5,5,5">
                     <ComboBoxItem Content="5 Minutes"/>
@@ -72,46 +75,58 @@
                         <SolidColorBrush Color="Black" Opacity="0.5"/>
                     </ProgressBar.Background>
                 </ProgressBar>
-                <TextBlock x:Name="textBlockSpeed" TextWrapping="Wrap" Text="..." d:Text="123 Mbps" Margin="5,0,5,5" Foreground="#FFB7FF00" FontFamily="Consolas" FontWeight="Bold" HorizontalAlignment="Center" Padding="3,3,3,3" FontSize="18">
-                    <TextBlock.Background>
-                        <SolidColorBrush Color="Black" Opacity="0.5"/>
-                    </TextBlock.Background>
-                </TextBlock>
-                <Button x:Name="buttonResponse" Content="Resonse" d:IsEnabled="True" IsEnabled="False" Margin="0,0,0,5" Click="buttonResponse_Click"/>
-                <Button x:Name="buttonHistory" Content="History" Margin="0,0,0,5" Click="buttonHistory_Click"/>
+
+                <Grid>
+                    <Rectangle RadiusX="10" RadiusY="10" Margin="5,5,5,5">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="Black" Opacity="0.5"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBlock x:Name="textBlockSpeed" TextWrapping="Wrap" Text="..." d:Text="123 Mbps" Padding="10,10,10,10" Foreground="#FFB7FF00" FontFamily="Consolas" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+                </Grid>
+                
             </StackPanel>
         </Grid>
         <Grid Margin="220,0,0,0">
-            <ScrollViewer x:Name="scrollViewerMain" d:Visibility="Hidden" Visibility="Visible" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <ScrollViewer.Background>
-                    <SolidColorBrush Color="White" Opacity="0.5"/>
-                </ScrollViewer.Background>
 
-                <StackPanel x:Name="stackPanelMain" >
-                </StackPanel>
-            </ScrollViewer>
-            <DataGrid x:Name="dataGridMain" AutoGenerateColumns="False" d:Visibility="Visible" Visibility="Hidden" SelectionMode="Single" SelectionChanged="dataGridMain_SelectionChanged" IsReadOnly="True" HeadersVisibility="Column" CanUserResizeRows="False">
-                <DataGrid.CellStyle>
-                    <Style TargetType="DataGridCell">
-                        <Setter Property="Background" Value="Transparent"/>
-                    </Style>
-                </DataGrid.CellStyle>
-                <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow">
-                        <Setter Property="Background" Value="Transparent"/>
-                    </Style>
-                </DataGrid.RowStyle>
-                <DataGrid.Background>
-                    <SolidColorBrush Color="#FFF0F0F0" Opacity="0.8"/>
-                </DataGrid.Background>
-                <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="dataGridTextColumnDate" Header="Date" />
-                    <DataGridTextColumn x:Name="dataGridTextColumnBandwidth" Header="Speed"/>
-                    <DataGridTextColumn x:Name="dataGridTextColumnDownloadSize" Header="Size" />
-                    <DataGridTextColumn x:Name="dataGridTextColumnTotalSeconds" Header="Duration"/>
-                </DataGrid.Columns>
+            <TabControl Margin="5,10,10,10">
+                <TabItem Header="Realtime">
+                    <ScrollViewer x:Name="scrollViewerMain" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <ScrollViewer.Background>
+                            <SolidColorBrush Color="White" Opacity="0.5"/>
+                        </ScrollViewer.Background>
 
-            </DataGrid>
+                        <StackPanel x:Name="stackPanelMain" >
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="History">
+                    <DataGrid x:Name="dataGridMain" AutoGenerateColumns="False" SelectionMode="Single" SelectionChanged="dataGridMain_SelectionChanged" IsReadOnly="True" HeadersVisibility="Column" CanUserResizeRows="False">
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.Background>
+                            <SolidColorBrush Color="#FFF0F0F0" Opacity="0.8"/>
+                        </DataGrid.Background>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="dataGridTextColumnDate" Header="Date" />
+                            <DataGridTextColumn x:Name="dataGridTextColumnBandwidth" Header="Speed"/>
+                            <DataGridTextColumn x:Name="dataGridTextColumnDownloadSize" Header="Size" />
+                            <DataGridTextColumn x:Name="dataGridTextColumnTotalSeconds" Header="Duration"/>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
+            
+            
 
 
         </Grid>
